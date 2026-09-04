@@ -1,4 +1,4 @@
-package br.com.alura.venus.model;
+package br.com.alura.screenmatch.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 

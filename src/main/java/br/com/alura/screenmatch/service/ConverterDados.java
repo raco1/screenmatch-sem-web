@@ -1,4 +1,4 @@
-package br.com.alura.venus.service;
+package br.com.alura.screenmatch.service;
 
 import tools.jackson.databind.ObjectMapper;
 

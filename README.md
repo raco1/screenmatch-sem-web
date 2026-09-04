@@ -1,4 +1,4 @@
-<img width="1280" height="640" alt="Image" src="https://github.com/user-attachments/assets/d63506b3-c11d-4109-aed7-d1753137be63" />
+<img width="1280" height="640" alt="Image" src="https://github.com/user-attachments/assets/8ab99cdf-eea3-4aa2-ae2c-97037b47e007" />
 
 <h1>
   Java: trabalhando com lambdas, streams e Spring Framework

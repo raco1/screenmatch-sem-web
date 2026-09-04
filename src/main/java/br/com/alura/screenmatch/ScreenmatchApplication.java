@@ -6,10 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VenusApplication implements CommandLineRunner {
+public class ScreenmatchApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(VenusApplication.class, args);
+        SpringApplication.run(ScreenmatchApplication.class, args);
     }
 
     @Override

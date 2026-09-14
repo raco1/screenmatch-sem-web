@@ -22,4 +22,82 @@ public class Serie {
         this.poster = d.poster();
         this.atores = d.atores();
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Integer getTotal_temporadas() {
+        return total_temporadas;
+    }
+
+    public void setTotal_temporadas(Integer total_temporadas) {
+        this.total_temporadas = total_temporadas;
+    }
+
+    public String getData_lancamento() {
+        return data_lancamento;
+    }
+
+    public void setData_lancamento(String data_lancamento) {
+        this.data_lancamento = data_lancamento;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Categoria getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Categoria categorias) {
+        this.categorias = categorias;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getAtores() {
+        return atores;
+    }
+
+    public void setAtores(String atores) {
+        this.atores = atores;
+    }
+
+    @Override
+    public String toString() {
+        return "\n-------------------------------------------" + "\n" +
+                "Série: " + titulo + "\n" +
+                "Total de temporadas: " + total_temporadas + "\n" +
+                "Data de lançamento: " + data_lancamento + "\n" +
+                "Rating: " + rating + "\n" +
+                "Categorias: " + categorias + "\n" +
+                "Sinopse: " + sinopse + "\n" +
+                "Atores: " + atores + "\n" +
+                "Pôster: " + poster + "\n" +
+                "-------------------------------------------";
+    }
 }

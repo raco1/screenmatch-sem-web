@@ -2,14 +2,17 @@ package br.com.alura.screenmatch.main;
 
 import br.com.alura.screenmatch.model.Dados;
 import br.com.alura.screenmatch.model.SeasonDetail;
+import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.service.Api;
 import br.com.alura.screenmatch.service.ConverterDados;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
@@ -82,6 +85,11 @@ public class Main {
 
     private void getSeriesListadas() {
         System.out.println("\nSéries buscadas nessa sessão: ");
-        seriesListadas.forEach(System.out::println);
+        List<Serie> series = seriesListadas.stream().
+                map(d -> new Serie(d))
+                .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getCategorias))
+                .forEach(System.out::println);
     }
 };

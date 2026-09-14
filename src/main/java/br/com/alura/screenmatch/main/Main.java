@@ -69,10 +69,11 @@ public class Main {
 
     private void getEpisodioPorSerie() {
         Dados dadosSerie = getDadosSerie();
+        String encoded = URLEncoder.encode(dadosSerie.titulo(), StandardCharsets.UTF_8);
         List<SeasonDetail> temporadas = new ArrayList<>();
 
         for (int i = 1; i <= dadosSerie.total_temporadas(); i++) {
-            var json = api.getApi(ENDERECO + "&season=" + i + API_KEY);
+            var json = api.getApi(ENDERECO + encoded + "&season=" + i + API_KEY);
             SeasonDetail dadosTemporada = conversor.obterDados(json, SeasonDetail.class);
             temporadas.add(dadosTemporada);
         }

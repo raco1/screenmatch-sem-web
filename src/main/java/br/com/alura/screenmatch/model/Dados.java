@@ -12,4 +12,19 @@ public record Dados(@JsonAlias("Title")String titulo,
                     @JsonAlias("Plot") String sinopse,
                     @JsonAlias("Poster") String poster,
                     @JsonAlias("Actors") String atores
-) {}
+) {
+
+    @Override
+    public String toString() {
+        return  "\n-------------------------------------------" + "\n" +
+                "Série: " + titulo + "\n" +
+                "Total de temporadas: " + total_temporadas + "\n" +
+                "Data de lançamento: " + data_lancamento + "\n" +
+                "Rating: " + rating + "\n" +
+                "Categorias: " + categorias + "\n" +
+                "Sinopse: " + sinopse + "\n" +
+                "Atores: " + atores + "\n" +
+                "Pôster: " + poster + "\n" +
+                "-------------------------------------------";
+    }
+}

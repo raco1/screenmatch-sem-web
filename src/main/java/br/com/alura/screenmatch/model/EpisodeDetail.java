@@ -8,5 +8,16 @@ public record EpisodeDetail(@JsonAlias("Title")String titulo,
                             @JsonAlias("Released") String data_lancamento,
                             @JsonAlias("Episode") String episodio,
                             @JsonAlias("Runtime") String duracao,
-                            @JsonAlias("imdbRating") String rating) {
+                            @JsonAlias("imdbRating") String rating)
+{
+    @Override
+    public String toString() {
+        return "\n-------------------------------------------" + "\n" +
+                "Série: " + titulo + "\n" +
+                "Data de lançamento: " + data_lancamento + "\n" +
+                "Episódio: " + episodio + "\n"+
+                "Duração: " + duracao + "\n" +
+                "Rating: " + rating + "\n" +
+                "-------------------------------------------" + "\n";
+    }
 }

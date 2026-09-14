@@ -1,5 +1,7 @@
 package br.com.alura.screenmatch.model;
 
+import br.com.alura.screenmatch.service.ConsultaGemini;
+
 import java.util.OptionalDouble;
 
 public class Serie {
@@ -18,7 +20,7 @@ public class Serie {
         this.data_lancamento = d.data_lancamento();
         this.rating = OptionalDouble.of(Double.valueOf(d.rating())).orElse(0);
         this.categorias = Categoria.fromString(d.categorias().split(",")[0].trim());
-        this.sinopse = d.sinopse();
+        this.sinopse = ConsultaGemini.obterTraducao(d.sinopse()).trim();
         this.poster = d.poster();
         this.atores = d.atores();
     }

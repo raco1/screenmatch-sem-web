@@ -3,8 +3,10 @@ package br.com.alura.screenmatch.main;
 import br.com.alura.screenmatch.model.Dados;
 import br.com.alura.screenmatch.model.SeasonDetail;
 import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.Api;
 import br.com.alura.screenmatch.service.ConverterDados;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -21,6 +23,11 @@ public class Main {
     private final String API_KEY = "&apikey=6585022c";
     private final Api api = new Api();
     private List<Dados> seriesListadas = new ArrayList<>();
+    private SerieRepository repository;
+
+    public Main(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void showMenu() {
         var opcao = -1;
@@ -58,7 +65,9 @@ public class Main {
 
     private void getSerie() {
         Dados dados = getDadosSerie();
-        seriesListadas.add(dados);
+        Serie serie = new Serie(dados);
+        repository.save(serie);
+        //seriesListadas.add(dados);
         System.out.println(dados);
     }
 

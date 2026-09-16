@@ -3,6 +3,8 @@ package br.com.alura.screenmatch.model;
 import br.com.alura.screenmatch.service.ConsultaGemini;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -29,6 +31,9 @@ public class Serie {
     private String poster;
 
     private String atores;
+
+    @Transient
+    private List<Episode> episodios = new ArrayList<>();
 
     public Serie(Dados d) {
         this.titulo = d.titulo();

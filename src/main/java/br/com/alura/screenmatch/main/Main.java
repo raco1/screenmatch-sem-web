@@ -94,9 +94,7 @@ public class Main {
 
     private void getSeriesListadas() {
         System.out.println("\nSéries buscadas nessa sessão: ");
-        List<Serie> series = seriesListadas.stream().
-                map(d -> new Serie(d))
-                .collect(Collectors.toList());
+        List<Serie> series = repository.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getCategorias))
                 .forEach(System.out::println);

@@ -35,6 +35,8 @@ public class Serie {
     @Transient
     private List<Episode> episodios = new ArrayList<>();
 
+    public Serie(){}
+
     public Serie(Dados d) {
         this.titulo = d.titulo();
         this.total_temporadas = d.total_temporadas();

@@ -32,10 +32,15 @@ public class Serie {
 
     private String atores;
 
-    @Transient
+    public void setEpisodios(List<Episode> episodios) {
+        this.episodios = episodios;
+    }
+
+    @OneToMany(mappedBy = "serie")
     private List<Episode> episodios = new ArrayList<>();
 
-    public Serie(){}
+    public Serie() {
+    }
 
     public Serie(Dados d) {
         this.titulo = d.titulo();
@@ -122,7 +127,7 @@ public class Serie {
 
     @Override
     public String toString() {
-        return "\n-------------------------------------------" + "\n" +
+        return "-------------------------------------------" + "\n" +
                 "Série: " + titulo + "\n" +
                 "Total de temporadas: " + total_temporadas + "\n" +
                 "Data de lançamento: " + data_lancamento + "\n" +

@@ -1,19 +1,16 @@
 package br.com.alura.screenmatch.main;
 
 import br.com.alura.screenmatch.model.Dados;
+import br.com.alura.screenmatch.model.Episode;
 import br.com.alura.screenmatch.model.SeasonDetail;
 import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.Api;
 import br.com.alura.screenmatch.service.ConverterDados;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -22,8 +19,8 @@ public class Main {
     private final Scanner scanner = new Scanner(System.in);
     private final String API_KEY = "&apikey=6585022c";
     private final Api api = new Api();
-    private List<Dados> seriesListadas = new ArrayList<>();
     private SerieRepository repository;
+    private List<Serie> series = new ArrayList<>();
 
     public Main(SerieRepository repository) {
         this.repository = repository;
@@ -51,7 +48,7 @@ public class Main {
                     getEpisodioPorSerie();
                     break;
                 case 3:
-                    getSeriesListadas();
+                    getSeries();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -66,9 +63,10 @@ public class Main {
     private void getSerie() {
         Dados dados = getDadosSerie();
         Serie serie = new Serie(dados);
+        //repository.deleteAll();
         repository.save(serie);
-        //seriesListadas.add(dados);
-        System.out.println(dados);
+        System.out.println("\nSérie " + serie.getTitulo() + ": ");
+        System.out.println(serie);
     }
 
     private Dados getDadosSerie() {
@@ -80,21 +78,42 @@ public class Main {
     }
 
     private void getEpisodioPorSerie() {
-        Dados dadosSerie = getDadosSerie();
-        String encoded = URLEncoder.encode(dadosSerie.titulo(), StandardCharsets.UTF_8);
-        List<SeasonDetail> temporadas = new ArrayList<>();
+        getSeries();
+        System.out.println("Escolha uma série pelo nome: ");
+        var nomeSerie = scanner.nextLine();
 
-        for (int i = 1; i <= dadosSerie.total_temporadas(); i++) {
-            var json = api.getApi(ENDERECO + encoded + "&season=" + i + API_KEY);
-            SeasonDetail dadosTemporada = conversor.obterDados(json, SeasonDetail.class);
-            temporadas.add(dadosTemporada);
+        Optional<Serie> serie =  series.stream()
+                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
+                .findFirst();
+
+        if(serie.isPresent()){
+            var serieEncontrada = serie.get();
+            List<SeasonDetail> temporadas = new ArrayList<>();
+
+            for (int i = 1; i <= serieEncontrada.getTotal_temporadas(); i++) {
+                String encoded = URLEncoder.encode(serieEncontrada.getTitulo(), StandardCharsets.UTF_8);
+                var json = api.getApi(ENDERECO + encoded + "&season=" + i + API_KEY);
+                SeasonDetail dadosTemporada = conversor.obterDados(json, SeasonDetail.class);
+                temporadas.add(dadosTemporada);
+            }
+            temporadas.forEach(System.out::println);
+
+            List<Episode> episodios = temporadas.stream()
+                    .flatMap(d -> d.episodios().stream()
+                            .map(e -> new Episode(d.temporada(), e)))
+                    .collect(Collectors.toList());
+
+            serieEncontrada.setEpisodios(episodios);
+            System.out.println(serieEncontrada + "serieEncontrada");
+            repository.save(serieEncontrada);
+        }else{
+            System.out.println("Série não encontrada.");
         }
-        temporadas.forEach(System.out::println);
     }
 
-    private void getSeriesListadas() {
+    private void getSeries() {
         System.out.println("\nSéries buscadas nessa sessão: ");
-        List<Serie> series = repository.findAll();
+        series = repository.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getCategorias))
                 .forEach(System.out::println);

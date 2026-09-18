@@ -100,8 +100,8 @@ public class Episode {
         return "\n-------------------------------------------" + "\n" +
                 "Nome do Episódio: " + titulo + "\n" +
                 "Data de lançamento: " + data_lancamento + "\n" +
-                "Episódio : " + numeroEp +
-                "Temporada : " + temporada + "\n" +
+                "Episódio: " + numeroEp + "\n" +
+                "Temporada: " + temporada + "\n" +
                 "Rating: " + rating + "\n" +
                 "-------------------------------------------" + "\n";
     }

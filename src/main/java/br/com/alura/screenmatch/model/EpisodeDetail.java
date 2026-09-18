@@ -13,7 +13,7 @@ public record EpisodeDetail(@JsonAlias("Title")String titulo,
     @Override
     public String toString() {
         return "\n-------------------------------------------" + "\n" +
-                "Série: " + titulo + "\n" +
+                "Nome do episódio: " + titulo + "\n" +
                 "Data de lançamento: " + data_lancamento + "\n" +
                 "Episódio: " + episodio + "\n"+
                 "Duração: " + duracao + "\n" +

@@ -36,7 +36,7 @@ public class Serie {
         this.episodios = episodios;
     }
 
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
     private List<Episode> episodios = new ArrayList<>();
 
     public Serie() {

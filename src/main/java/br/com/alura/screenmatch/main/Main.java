@@ -104,7 +104,6 @@ public class Main {
                     .collect(Collectors.toList());
 
             serieEncontrada.setEpisodios(episodios);
-            System.out.println(serieEncontrada + "serieEncontrada");
             repository.save(serieEncontrada);
         }else{
             System.out.println("Série não encontrada.");

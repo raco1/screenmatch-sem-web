@@ -35,6 +35,7 @@ public class Main {
                     3 - Listar séries buscadas
                     4 - Buscar série por título
                     5 - Buscar série por ator
+                    6 - Top 5 séries
                     0 - Sair
                     """;
 
@@ -57,6 +58,9 @@ public class Main {
                     break;
                 case 5:
                     getSerieByActors();
+                    break;
+                case 6:
+                    getSerieByBestRating();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -147,5 +151,11 @@ public class Main {
         } else {
             System.out.println("Nenhuma série encontrada de " + nomeAtor + " com avaliação maior ou igual a " + rating + ".");
         }
+    }
+
+    private void getSerieByBestRating(){
+        List<Serie> serieTopFive = repository.findTop5ByOrderByRatingDesc();
+        System.out.println("As 5 melhores séries buscadas por você são: ");
+        serieTopFive.forEach(s -> System.out.println(s.getTitulo() + ", availiação: " + s.getRating()));
     }
 };

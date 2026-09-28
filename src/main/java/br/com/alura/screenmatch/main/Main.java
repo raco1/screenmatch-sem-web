@@ -34,6 +34,7 @@ public class Main {
                     2 - Buscar episódios
                     3 - Listar séries buscadas
                     4 - Buscar série por título
+                    5 - Buscar série por ator
                     0 - Sair
                     """;
 
@@ -53,6 +54,9 @@ public class Main {
                     break;
                 case 4:
                     getSerieByName();
+                    break;
+                case 5:
+                    getSerieByActors();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -128,6 +132,20 @@ public class Main {
             System.out.println("Dados da série: " + serieBuscada.get());
         } else {
             System.out.println("Série não encontrada.");
+        }
+    }
+
+    private void getSerieByActors() {
+        System.out.println("Qual o nome para busca?");
+        var nomeAtor = scanner.nextLine();
+        System.out.println("Avaliações à partir de qual valor?");
+        var rating = scanner.nextDouble();
+        List<Serie> seriesEncontradas = repository.findByAtoresContainingIgnoreCaseAndRatingGreaterThanEqual(nomeAtor, rating);
+        if(!seriesEncontradas.isEmpty()){
+            System.out.println("Séries em que " + nomeAtor + " trabalhou com avaliação maior ou igual à " + rating + ":");
+            seriesEncontradas.forEach(s -> System.out.println(s.getTitulo() + ", availiação: " + s.getRating()));
+        } else {
+            System.out.println("Nenhuma série encontrada de " + nomeAtor + " com avaliação maior ou igual a " + rating + ".");
         }
     }
 };

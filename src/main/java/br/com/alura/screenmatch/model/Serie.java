@@ -32,11 +32,7 @@ public class Serie {
 
     private String atores;
 
-    public void setEpisodios(List<Episode> episodios) {
-        this.episodios = episodios;
-    }
-
-    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episode> episodios = new ArrayList<>();
 
     public Serie() {
@@ -51,6 +47,11 @@ public class Serie {
         this.sinopse = ConsultaGemini.obterTraducao(d.sinopse()).trim();
         this.poster = d.poster();
         this.atores = d.atores();
+    }
+
+    public void setEpisodios(List<Episode> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
+        this.episodios = episodios;
     }
 
     public Long getId() {
@@ -136,6 +137,7 @@ public class Serie {
                 "Sinopse: " + sinopse + "\n" +
                 "Atores: " + atores + "\n" +
                 "Pôster: " + poster + "\n" +
+                "Episódios: " + episodios + "\n" +
                 "-------------------------------------------";
     }
 }

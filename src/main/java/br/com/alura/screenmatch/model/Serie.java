@@ -43,7 +43,7 @@ public class Serie {
         this.total_temporadas = d.total_temporadas();
         this.data_lancamento = d.data_lancamento();
         this.rating = OptionalDouble.of(Double.valueOf(d.rating())).orElse(0);
-        this.categorias = Categoria.fromString(d.categorias().split(",")[0].trim());
+        this.categorias = Categoria.fromStringOmdb(d.categorias().split(",")[0].trim());
         this.sinopse = ConsultaGemini.obterTraducao(d.sinopse()).trim();
         this.poster = d.poster();
         this.atores = d.atores();

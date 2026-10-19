@@ -9,13 +9,10 @@
         <module name="screenmatch-sem-web" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="screenmatch" target="17" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="23" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="screenmatch" options="-parameters" />
       <module name="screenmatch-sem-web" options="-parameters" />
     </option>
   </component>

@@ -17,7 +17,7 @@ public class Serie {
     @Column(unique = true)
     private String titulo;
 
-    private Integer total_temporadas;
+    private Integer totalTemporadas;
 
     private String data_lancamento;
 
@@ -40,7 +40,7 @@ public class Serie {
 
     public Serie(Dados d) {
         this.titulo = d.titulo();
-        this.total_temporadas = d.total_temporadas();
+        this.totalTemporadas = d.totalTemporadas();
         this.data_lancamento = d.data_lancamento();
         this.rating = OptionalDouble.of(Double.valueOf(d.rating())).orElse(0);
         this.categorias = Categoria.fromStringOmdb(d.categorias().split(",")[0].trim());
@@ -71,11 +71,11 @@ public class Serie {
     }
 
     public Integer getTotal_temporadas() {
-        return total_temporadas;
+        return totalTemporadas;
     }
 
     public void setTotal_temporadas(Integer total_temporadas) {
-        this.total_temporadas = total_temporadas;
+        this.totalTemporadas = total_temporadas;
     }
 
     public String getData_lancamento() {
@@ -130,7 +130,7 @@ public class Serie {
     public String toString() {
         return "-------------------------------------------" + "\n" +
                 "Série: " + titulo + "\n" +
-                "Total de temporadas: " + total_temporadas + "\n" +
+                "Total de temporadas: " + totalTemporadas + "\n" +
                 "Data de lançamento: " + data_lancamento + "\n" +
                 "Rating: " + rating + "\n" +
                 "Categorias: " + categorias + "\n" +

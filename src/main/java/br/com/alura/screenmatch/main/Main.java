@@ -18,6 +18,7 @@ public class Main {
     private final Api api = new Api();
     private SerieRepository repository;
     private List<Serie> series = new ArrayList<>();
+    private Optional<Serie> getSerie;
 
     public Main(SerieRepository repository) {
         this.repository = repository;
@@ -36,6 +37,7 @@ public class Main {
                     7 - Buscar séries por categoria
                     8 - Filtrar séries
                     9 - Buscar episódio por trecho
+                    10 - Buscar episódios mais bem avaliados
                     0 - Sair
                     """;
 
@@ -70,6 +72,9 @@ public class Main {
                     break;
                 case 9:
                     getEpisodioPorTrecho();
+                    break;
+                case 10:
+                    getTopEpisodiosPorSerie();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -139,10 +144,10 @@ public class Main {
     private void getSerieByName() {
         System.out.println("Escolha uma série pelo nome: ");
         var nomeSerie = scanner.nextLine();
-        Optional<Serie> serieBuscada = repository.findByTituloContainingIgnoreCase(nomeSerie);
+        getSerie = repository.findByTituloContainingIgnoreCase(nomeSerie);
 
-        if(serieBuscada.isPresent()){
-            System.out.println("Dados da série: " + serieBuscada.get());
+        if(getSerie.isPresent()){
+            System.out.println("Dados da série: " + getSerie.get());
         } else {
             System.out.println("Série não encontrada.");
         }
@@ -200,5 +205,20 @@ public class Main {
                 e.getTemporada(),
                 e.getNumeroEp(),
                 e.getTitulo()));
+    }
+
+    private void getTopEpisodiosPorSerie(){
+        getSerieByName();
+        if(getSerie.isPresent()){
+            Serie serie = getSerie.get();
+            List<Episode> topEpisodios = repository.topEpisodiosPorSerie(serie);
+            topEpisodios.forEach(e -> System.out.printf(
+                    "Série: %s, Temporada %s, Episódio %s - %s, Rating: %s\n",
+                    e.getSerie().getTitulo(),
+                    e.getTemporada(),
+                    e.getNumeroEp(),
+                    e.getTitulo(),
+                    e.getRating()));
+        }
     }
 };
